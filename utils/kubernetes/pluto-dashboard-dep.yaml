@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pluto-dashboard
+  labels:
+    app: pluto-dashboard
+  namespace: pluto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pluto-dashboard
+  template:
+    metadata:
+      labels:
+        app: pluto-dashboard
+    spec:
+      serviceAccount: pluto
+      containers:
+        - name: pluto-dashboard
+          image: klinux/pluto-dashboard:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DEBUG
+              value: "false"
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          ports:
+            - containerPort: 8080
+              name: http

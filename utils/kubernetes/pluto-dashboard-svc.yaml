@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pluto-dashboard-svc
+  labels:
+    app: pluto-dashboard-svc
+  namespace: pluto
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      name: http
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: pluto-dashboard
